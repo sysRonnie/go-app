@@ -1,0 +1,59 @@
+package user
+
+import (
+    "go-app/view/layout"
+    "go-app/model"
+    "go-app/view/component"
+    "context"
+)
+
+// Function to get the current user from the context
+func getUser(c context.Context) string {
+    user, ok := c.Value("user").(string)
+    if !ok {
+        return ""
+    }
+    return user
+}
+
+// Templ function to render the login and registration forms
+templ Show(user model.User) {
+    <h1>{getUser(ctx)} name is here!</h1>
+
+    @layout.Base() {
+        // Check if user is logged in
+        if user.Email != "" {
+            <h1>Welcome back, {user.Email}!</h1>
+        } else {
+            <div class="text-xl text-blue-500 font-bold">Login</div>
+            <form action="/login" method="POST">
+                @component.Input(component.InputProps{
+                    Type: "email",
+                    Name: "email",
+                    Placeholder: "Enter your email",
+                })
+                @component.Input(component.InputProps{
+                    Type: "password",
+                    Name: "password",
+                    Placeholder: "Enter your password",
+                })
+                <button type="submit">Login</button>
+            </form>
+
+            <h1>Register</h1>
+            <form action="/register" method="POST">
+                @component.Input(component.InputProps{
+                    Type: "email",
+                    Name: "email",
+                    Placeholder: "Enter your email",
+                })
+                @component.Input(component.InputProps{
+                    Type: "password",
+                    Name: "password",
+                    Placeholder: "Enter your password",
+                })
+                <button type="submit">Register</button>
+            </form>
+        }
+    }
+}
