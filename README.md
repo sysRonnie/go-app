@@ -15,3 +15,6 @@ First, Let's study this code and perhaps finish the video.
 
 TIME: 19:20
 
+September 5th, 2024
+08:17
+UPDATE: Ended up doing some cool stuff. Tailwind was added and I did some extra tidy up work. The database is interesting but Im gonna have to fuck with it. 
