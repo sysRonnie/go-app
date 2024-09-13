@@ -14,6 +14,11 @@ type UserHandler struct {
 	DB *sql.DB
 }
 
+func (h UserHandler) RenderTest(c echo.Context) error {
+	// Then we render our user template, with our user data
+	return render(c, user.Test())
+}
+
 func (h UserHandler) RenderLandingPage(c echo.Context) error {
 	// We pass down our user parameter
 	u := model.User{

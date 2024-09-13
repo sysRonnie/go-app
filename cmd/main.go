@@ -26,16 +26,17 @@ func main() {
 	app.Static("/", "public")
 
 	// Import the UserHandler Struct from the handler
-	userHandler := handler.UserHandler{DB: db} // Passing DB to UserHandler
-	api := api.UserAPI{}
+	handler := handler.UserHandler{DB: db} // Passing DB to UserHandler
+	api := api.UserAPI{DB: db}
 	app.Use(withUser)
 
 	// Define Template Routes
-	app.GET("/user", userHandler.RenderLandingPage)
+	app.GET("/user", handler.RenderLandingPage)
+	app.GET("/text", handler.RenderTest)
 	app.GET("/hello", api.Test)
 	// Define API Routes
-	app.POST("/login", userHandler.HandleLogin)
-	app.POST("/register", userHandler.HandleRegister)
+	app.POST("/login", api.HandleLogin)
+	app.POST("/register", api.HandleRegister)
 
 	// Start the server
 	if err := app.Start(":3000"); err != nil {
