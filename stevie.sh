@@ -2,11 +2,21 @@
 #!/bin/bash
 
 run_make() {
-    # Find and kill the process using port 3000
-    SERVER_PID=$(lsof -ti tcp:3000)
+    # Find the Go server process using port 3000
+    SERVER_PID=$(lsof -ti tcp:3000 | xargs ps -p | grep '[g]o' | awk '{print $1}')
+    
     if [ -n "$SERVER_PID" ]; then
-        echo "Killing process using port 3000 (PID: $SERVER_PID)"
-        kill -9 $SERVER_PID  # Force kill to ensure the process is stopped
+        echo "Killing Go server process using port 3000 (PID: $SERVER_PID)"
+        kill -TERM $SERVER_PID  # Try a graceful termination
+        sleep 3  # Wait a few seconds to allow the process to terminate
+
+        # If the process is still running, force kill it
+        if kill -0 $SERVER_PID 2>/dev/null; then
+            echo "Process did not terminate, force killing (PID: $SERVER_PID)"
+            kill -9 $SERVER_PID
+        fi
+    else
+        echo "No Go server process found on port 3000"
     fi
 
     # Start the server by running the make command

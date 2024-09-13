@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	_ "github.com/mattn/go-sqlite3"
+	"go-app/api"
 	"go-app/db"
 	"go-app/handler"
 	"log"
@@ -26,11 +27,12 @@ func main() {
 
 	// Import the UserHandler Struct from the handler
 	userHandler := handler.UserHandler{DB: db} // Passing DB to UserHandler
+	api := api.UserAPI{}
 	app.Use(withUser)
 
 	// Define Template Routes
 	app.GET("/user", userHandler.RenderLandingPage)
-
+	app.GET("/hello", api.Test)
 	// Define API Routes
 	app.POST("/login", userHandler.HandleLogin)
 	app.POST("/register", userHandler.HandleRegister)
