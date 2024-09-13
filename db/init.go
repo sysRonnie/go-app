@@ -5,6 +5,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// Create the db variable
 var db *sql.DB
 
 func InitDB() (*sql.DB, error) {
@@ -16,12 +17,17 @@ func InitDB() (*sql.DB, error) {
 	}
 
 	// Create a table if it doesn't exist
-	createTableQuery := `
-	CREATE TABLE IF NOT EXISTS users (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		email TEXT NOT NULL UNIQUE
+	sqlCreateTableUSER_MASTER := `
+	  CREATE TABLE IF NOT EXISTS USER_MASTER (
+		USER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		USERNAME TEXT NOT NULL UNIQUE,
+		EMAIL TEXT NOT NULL UNIQUE,
+		DEVICE_NAME TEXT NOT NULL,
+		BROWSER_TYPE TEXT NOT NULL,
+		IP_ADDRESS TEXT NOT NULL
 	);`
-	if _, err := db.Exec(createTableQuery); err != nil {
+
+	if _, err := db.Exec(sqlCreateTableUSER_MASTER); err != nil {
 		return nil, err
 	}
 

@@ -3,30 +3,26 @@ package handler
 import (
 	"database/sql"
 
-	"net/http"
-    "context"
+	"context"
 	"github.com/labstack/echo/v4"
-    "go-app/model"
-	"go-app/view/user"
-	
+	"go-app/model"
+	"go-app/view/page"
+	"net/http"
 )
 
 type UserHandler struct {
 	DB *sql.DB
 }
 
-
-
-func (h UserHandler) HandleUserShow(c echo.Context) error {
-    // We pass down our user parameter
+func (h UserHandler) RenderLandingPage(c echo.Context) error {
+	// We pass down our user parameter
 	u := model.User{
-        Email: "",
-    }
+		Email: "",
+	}
 
-    // Then we render our user template, with our user data
-	return render(c, user.Show(u))
+	// Then we render our user template, with our user data
+	return render(c, user.ShowLandingPage(u))
 }
-
 
 // Registration handler
 func (h *UserHandler) HandleRegister(c echo.Context) error {
@@ -46,7 +42,6 @@ func (h *UserHandler) HandleRegister(c echo.Context) error {
 
 	return c.String(http.StatusOK, "User registered successfully!")
 }
-
 
 // Login handler
 func (h *UserHandler) HandleLogin(c echo.Context) error {

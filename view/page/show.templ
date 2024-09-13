@@ -1,0 +1,79 @@
+
+package user
+
+import (
+    "context"
+    "go-app/model"
+    "go-app/view/component"
+    "go-app/view/layout"
+)
+
+// Function to get the current user from the context
+func getUser(c context.Context) string {
+    user, ok := c.Value("user").(string)
+    if !ok {
+        return ""
+    }
+    return user
+}
+
+// Templ function to render the login and registration forms
+templ ShowLandingPage(user model.User) {
+
+    @layout.Base() {
+        <div class="flex items-center justify-center min-h-screen bg-gray-100">
+            <div class="max-w-lg w-full bg-white p-8 rounded-lg shadow-lg">
+                <h1>{getUser(ctx)} is here!</h1>
+                if user.Email != "" {
+                    // Welcome user back if already logged in
+                    <h1 class="text-3xl font-bold text-gray-700 mb-6">Welcome back, {user.Email}!</h1>
+                } else {
+                    // Show login and registration forms if user is not logged in
+                    <div class="flex flex-row justify-between gap-6">
+                        <div class="w-1/2">
+                            <h2 class="text-xl font-bold text-gray-700 mb-4">Login</h2>
+                            <form action="/login" method="POST">
+                                @component.Input(component.InputProps{
+                                    Type: "email",
+                                    Name: "email",
+                                    Placeholder: "Enter your email",
+                                    Class: "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                                })
+                                @component.Input(component.InputProps{
+                                    Type: "password",
+                                    Name: "password",
+                                    Placeholder: "Enter your password",
+                                    Class: "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                                })
+                                <button type="submit" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500">
+                                    Login
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="w-1/2">
+                            <h2 class="text-xl font-bold text-gray-700 mb-4">Register</h2>
+                            <form action="/register" method="POST">
+                                @component.Input(component.InputProps{
+                                    Type: "email",
+                                    Name: "email",
+                                    Placeholder: "Enter your email",
+                                    Class: "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                                })
+                                @component.Input(component.InputProps{
+                                    Type: "password",
+                                    Name: "password",
+                                    Placeholder: "Enter your password",
+                                    Class: "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                                })
+                                <button type="submit" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500">
+                                    Register
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
