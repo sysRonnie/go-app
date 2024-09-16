@@ -16,22 +16,22 @@ func (h UserAPI) Test(c echo.Context) error {
 }
 
 // Registration handler
+
 func (h *UserAPI) HandleRegister(c echo.Context) error {
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
 	if email == "" || password == "" {
-		return c.String(http.StatusBadRequest, "Email and password cannot be empty")
+		return c.String(http.StatusBadRequest, "<p>Email and password cannot be empty</p>")
 	}
 
-	// Insert new user into the database
 	_, err := h.DB.Exec("INSERT INTO users (email, password) VALUES (?, ?)", email, password)
 	if err != nil {
 		c.Logger().Errorf("Error inserting user into database: %v", err)
-		return c.String(http.StatusInternalServerError, "Error registering user")
+		return c.String(http.StatusInternalServerError, "<p>Error registering user</p>")
 	}
 
-	return c.String(http.StatusOK, "User registered successfully!")
+	return c.String(http.StatusOK, "<p>User registered successfully!</p>")
 }
 
 // Login handler

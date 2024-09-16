@@ -4,3 +4,6 @@ run:
 
 css:
 	npx tailwindcss -i view/css/app.css -o public/styles.css --watch
+
+dev: 
+	bash stevie.sh

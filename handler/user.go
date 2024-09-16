@@ -15,8 +15,7 @@ type UserHandler struct {
 }
 
 func (h UserHandler) RenderTest(c echo.Context) error {
-	// Then we render our user template, with our user data
-	return render(c, user.Test())
+	return render(c, page.RenderTestPage())
 }
 
 func (h UserHandler) RenderLandingPage(c echo.Context) error {
@@ -26,7 +25,7 @@ func (h UserHandler) RenderLandingPage(c echo.Context) error {
 	}
 
 	// Then we render our user template, with our user data
-	return render(c, user.ShowLandingPage(u))
+	return render(c, page.ShowLandingPage(u))
 }
 
 // Registration handler

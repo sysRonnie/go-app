@@ -2,7 +2,7 @@
 
 // templ: version: v0.2.773
 
-package user
+package page
 
 //lint:file-ignore SA4006 This context is only used if a nested component is present.
 
@@ -95,7 +95,18 @@ func ShowLandingPage(user model.User) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			} else {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <div class=\"flex flex-row justify-between gap-6\"><div class=\"w-1/2\"><h2 class=\"text-xl font-bold text-gray-700 mb-4\">Login</h2><form action=\"/login\" method=\"POST\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <button hx-get=\"text\" hx-post=\"\" hx-target=\"#replaceMe\" hx-swap=\"outerHTML\" class=\"bg-red-500\">Press me!</button>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = component.Button(
+					component.ButtonProps{
+						Title: "Custom Button",
+					}).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <div id=\"replaceMe\"></div><div class=\"flex flex-row justify-between gap-6\"><div class=\"w-1/2\"><h2 class=\"text-xl font-bold text-gray-700 mb-4\">Login</h2><form action=\"/login\" method=\"POST\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -117,7 +128,7 @@ func ShowLandingPage(user model.User) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"submit\" class=\"mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500\">Login</button></form></div><div class=\"w-1/2\"><h2 class=\"text-xl font-bold text-gray-700 mb-4\">Register</h2><form action=\"/register\" method=\"POST\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"submit\" class=\"mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500\">Login</button></form></div><div class=\"w-1/2\"><h2 class=\"text-xl font-bold text-gray-700 mb-4\">Register</h2><form hx-post=\"/register\" hx-target=\"#registration-result\" hx-swap=\"innerHTML\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -139,7 +150,7 @@ func ShowLandingPage(user model.User) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"submit\" class=\"mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500\">Register</button></form></div></div>")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"submit\" class=\"mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500\">Register</button></form><div id=\"registration-result\"></div></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

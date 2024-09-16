@@ -2,7 +2,7 @@
 
 // templ: version: v0.2.773
 
-package user
+package page
 
 //lint:file-ignore SA4006 This context is only used if a nested component is present.
 
@@ -13,7 +13,7 @@ import (
 	"go-app/view/layout"
 )
 
-func Test() templ.Component {
+func RenderTestPage() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
